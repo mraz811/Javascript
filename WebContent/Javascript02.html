@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>대화형 함수</title>
+</head>
+<script type="text/javascript">
+	function alertTest() {
+		alert("단순한 내용 출력하는 대화창");		
+	}
+	
+	function confirmTest() {
+		if(confirm("배경색을 바꿀까요??")){
+			document.body.style.backgroundColor = "tomato";
+// 			document.write("true가 반환됨");
+		} else{
+			alert("기존색상을 유지합니다.");
+// 			document.write("false가 반환됨");
+		}
+	}
+	
+	// 반환 값은 text이며, 취소는 null
+	function promptTest(){
+		var txt = prompt("어느 과목이 좋아요?\n(1.java, 2.DB, 3.JavaScript)", 
+				"해당 과목의 번호를 입력하세요");
+		
+		switch(txt){
+		case "1": alert("죽도록 해봅니다.");	break;
+		case "2": alert("열심히 하세요");		break;
+		case "3": alert("즐기세요");			break;
+		case null: alert("취소하지 말고 선택해줘요");			break;
+		default : alert("1~3번 중 다시 선택");	break;
+		}
+		
+	}
+	
+</script>
+<body>
+	<h1>Window에서 기본으로 제공하고 있는 대화형 함수</h1>
+	<small> 종류는 <strong>alert(), confirm(), prompt()</strong></small>
+	<p>alert(): <button onclick="alertTest()">클릭!</button></p>
+	<p>confirm() : <button onclick="confirmTest()">클릭!</button></p>
+	<p>prompt() : <button onclick="promptTest()">클릭!</button></p>
+</body>
+</html>

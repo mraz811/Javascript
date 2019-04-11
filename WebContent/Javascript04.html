@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Javascript dom 탐색</title>
+</head>
+<script type="text/javascript">
+//검색은 문서(document)에서 찾음. get메소드로 가져옴
+	function searchQS(){
+		var doc = document.querySelectorAll("#test");
+		doc[0].innerHTML = "querySelecterAll CSS 표현식으로 탐색";
+		// select 표현식으로 가지고 오면 배열이기 때문에 doc이 아닌 doc[배열]
+	}
+	function searchId() {
+		var doc = document.getElementById("test");
+		alert(doc.length); // undefined (id는 하나만 가져오기 때문에 undefined)
+		doc.innerHTML="id로 검색합니다.";
+		doc.style.color = "tomato";
+		doc.style.backgroundColor = "yellow";
+		doc.title = "id탐색"; // title 추가/변경이 가능하다
+		doc.className = "클래스변경"; // doc.className만 있으면 가지고 올 수 있음
+	}
+	function searchName() {
+		// nodelist
+		var doc = document.getElementsByName("test2");
+/* 		for(var s in doc){
+			alert(s);
+		} */
+		alert(doc.length); // 3 (배열로 가져오기 때문에 길이 나옴)
+		doc[2].value = "name속성으로 값을 변경";
+	}
+	function searchTagName() {
+		var doc = document.getElementsByTagName("p")[3];
+		doc.value = "TagName으로 검색했습니다.";
+		doc.style.color = "blue";
+	}
+</script>
+<body>
+	<!-- CSS에서는 select 표현식이라고.. -->
+	<p onclick="searchQS()">dom탐색 메소드</p>
+	<!-- 만약에 하나의 화면에 같은 여러 개의 id가 있다면, 첫번째만 선택됨 -->
+	<p id="test" onclick="searchId()">1.엘리먼트의 id로 검색: 중복불가, 값 1개만 반환</p>
+	<p onclick="searchName()">2.element의 name으로 검색: 여러개를 "배열로" 반환 (배열이름:nodelist) <br>
+		<input type="text" name="test2"><br>	
+		<input type="text" name="test2"><br>	
+		<input type="text" name="test2">	
+	</p>
+	<p onclick="searchTagName()">3.엘리먼트의 태그이름으로 검색: 여러개를 반환(배열:nodelist)</p>
+	
+</body>
+</html>

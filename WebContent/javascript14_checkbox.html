@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>체크박스 연습</title>
+<style type="text/css">
+	#colorBox{ 
+		width: 320px;
+		height: 320px;
+		position: relative;
+		border: 1px solid orange;
+	}
+	
+	#yellow, #green, #blue, #black{
+		width: 150px;
+		height: 150px;
+		border: 1px solid gray;
+		position: absolute;
+	}
+	
+	#green{
+		left: 160px;
+	}
+	
+	#blue{
+		top: 160px;
+	}
+	
+	#black{
+		left: 160px;
+		top: 160px;
+	}
+
+</style>
+</head>
+<script type="text/javascript">
+function allSel(bool){
+//	alert(bool); 	//true, false 중 1 뜸
+	var chks = document.getElementsByName("chk");
+	for (var i = 0; i < chks.length; i++) {
+		chks[i].checked = bool;
+	} // value가 아니라는 거에요, checked 상태라는 겁니다.
+}
+
+function sel(){
+	var chks = document.getElementsByName("chk");
+	for (var i = 0; i < chks.length; i++) {
+		if(chks[i].checked){
+			document.getElementById(chks[i].value).style.backgroundColor = chks[i].value;
+		} else {
+			document.getElementById(chks[i].value).style.backgroundColor = "white";
+		}
+	}
+}
+
+function clearDiv(){
+	// colorBox에 들어있는 div만 가지고 옴 ) selector 표현식 (nodelist 반환)
+	var colorBox = document.querySelectorAll("#colorBox>div");
+	for (var i = 0; i < colorBox.length; i++) {
+		colorBox[i].style.backgroundColor="white";
+	}
+	
+	// checkbox 전체 해지
+	document.getElementsByName("all")[0].checked = false;
+	allSel(false);
+}
+
+</script>
+
+<body>
+	<div id="colorBox">
+		<div id="yellow">노랑</div>
+		<div id="green">초롱</div>
+		<div id="blue">파랑</div>
+		<div id="black">검정</div>
+	</div>
+
+	<div id="base">
+		<form>
+			<input type="checkbox" name="all" onclick="allSel(this.checked)"/>전체선택<br>
+			<input type="checkbox" name="chk" value="yellow"/>노랑<br>
+			<input type="checkbox" name="chk" value="green"/>초롱<br>
+			<input type="checkbox" name="chk" value="blue"/>파랑<br>`
+			<input type="checkbox" name="chk" value="black"/>검정<br>
+	
+			<input type="button" value="선택" onclick="sel()"/><br>
+			<input type="button" value="클리어" onclick="clearDiv()"/><br>
+		</form>
+	</div>
+</body>
+</html>

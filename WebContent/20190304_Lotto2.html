@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로또번호 생성기</title>
+</head>
+<script type="text/javascript">
+// 생성 (배열) 7개 숫자, 마지막 보너스
+//출력 (마지막 배열 자르는 거 pop사용)
+// 숫자 정렬 sorting compareNum(a,b)
+	
+	function LottoMake(){
+		// 배열의 크기를 선언하지 않음. 나중에 push로 사용할 것
+		this.ball = new Array();
+		this.makeBall = function(){
+			return Math.floor(Math.random()*45+1);
+		};
+	} //LottoMake()
+	
+	// 안에 작성해도 되지만, prototype으로 메서드 하나 추가할게요.
+	LottoMake.prototype.lottoBalls = function(){
+		var count =0; //반복 횟수
+		while(count<7){
+			var ball = this.makeBall(); //랜덤숫자를 하나 받아옵니다
+			
+			// 중복검사 (indexOf 없다면 -1반환)
+			if(this.ball.indexOf(ball)==-1){
+				this.ball.push(ball); // ball(값 하나)과 this.ball(배열)은 다릅니다
+				count++;
+			}
+		}
+		return this.ball;
+	};
+	
+	// 출력 pop(), 정렬
+	function lottoPrint(){
+		var lotto = new LottoMake();
+		var balls_7 = lotto.lottoBalls(); // 숫자 7개가 담겨있는 배열
+//		alert(balls_7.toString());
+		document.getElementById("lottoBonus").innerHTML = balls_7.pop();
+		balls_7.sort(compare); // 정렬
+		document.getElementById("lottoNum").innerHTML = balls_7;
+	}
+	
+	//크기 비교
+	function compare(a,b){
+		return a-b;
+	}
+	
+
+</script>
+<body>
+	<fieldset>
+		<legend>로또번호 만들기</legend>
+		로또번호 <span id="lottoNum"></span><br>
+		보너스번호<span id="lottoBonus"></span><br>
+		<button onclick="lottoPrint()">생성</button>
+	</fieldset>
+
+
+</body>
+</html>

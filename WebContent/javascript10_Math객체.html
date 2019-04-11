@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Math 객체 활용</title>
+<script type="text/javascript">
+//	var date = new Date(); // date타입  //	date.getDay(); //날짜 가져올 수 있음
+//	var arr = new Array(); // 배열
+	
+// 그러니  var math = new Math(); // math.random()???? 아닙니다!!!!!
+// math객체는 static으로 되어있으므로, 그냥 사용
+
+function randomNum(){
+	var rnum = Math.floor(Math.random()*256);
+	document.getElementById("rnum").value = rnum;
+	return rnum;
+}
+
+function randomColor(){ // 익명함수로 바꾸면!!! 쉽게 바꿀 수 있다
+	var rnum = function(){
+		return Math.floor(Math.random()*256);
+	}; 
+	document.body.style.backgroundColor = "rgb("+rnum()+","+rnum()+","+rnum()+")";	
+}
+
+function circleView(){
+	var rnum = Math.floor(Math.random()*200);
+	var circle = document.getElementById("circle");
+	circle.style.width = rnum + "px";
+	circle.style.height = rnum + "px";
+	circle.style.borderRadius = Math.floor(rnum/2)+"px";
+	circle.style.display = "block";
+}
+
+</script>
+<style type="text/css">
+	#circle{
+		border: 1px solid red;
+		display: none;
+	}
+</style>
+</head>
+<body>
+	<h1>랜덤숫자 생성하기</h1>
+	숫자:	<input type="text" id="rnum" readonly="readonly"/>
+		<input type="button" value="숫자생성" onclick="randomNum()"/>
+	
+	<h1>랜덤컬러 생성하기</h1>
+	<input type="button" value="바탕색변경" onclick="randomColor()"/>
+	
+	<h1>원 만들기</h1>
+	<input type="button" value="원만들기" onclick="circleView()"/><br>
+	<div id="circle"></div>
+	
+	<h1>원의 넓이 구하기</h1>
+	<input type="button" value="원의 넓이" onclick="circleArea()"/><br>
+	반지름 : <span id="r"></span><br>
+	원의 넓이 : <span id="area"></span><br>
+	원의 둘레 : <span id="len"></span><br>
+	
+	<script type="text/javascript">
+		function circleArea(){
+			// 바로 width가 아니라 css를 통해서 style.width를 찍어야 함니다.
+			var circleWidth = document.getElementById("circle").style.width;
+//			alert(circleWidth);   // ex) 숫자px
+			var r2 = circleWidth.substr(0, circleWidth.length-2);
+			var r = Math.floor(r2/2); // 반지름
+			
+			var area = Math.PI*(Math.pow(r,2)); // 면적
+			var len = r2*Math.PI;
+			
+			document.getElementById("r").innerHTML = r;
+			document.getElementById("area").innerHTML = Math.round(area)+"㎡";
+			document.getElementById("len").innerHTML = Math.round(len)+"m";
+		}
+	</script>
+	
+</body>
+</html>

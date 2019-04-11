@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#clock {
+	width: 300px;
+	height: 300px;
+	border: 1px solid red;
+	border-radius: 20px;
+	text-align: center;
+	background: url("./images/clock.png");
+	background-size: 300px;
+	margin: 150px auto;
+}
+
+#btn {
+	background: tomato;
+	color: white;
+	width: 50px;
+	position: relative; /* div에 묶어 놓기 위해 */
+	left: 130px;
+	cursor: pointer;
+}
+
+#alarm {
+	width: 50px;
+}
+
+#time {
+	position: relative;
+	top: 70px;
+	font-size: 20pt;
+	font-weight: bold;
+	color: orange;
+}
+
+#setAlarm {
+	position: relative;
+	top: 80px;
+	display: none; 
+}
+
+label {
+	color: orange;
+	font-weight: bold;
+	background: black;
+}
+
+.move{
+	/*4초에 한번식 무한으로 clockmove라는 animation을 실행시켜 줍니다.*/
+	-webkit-animation : clockmove infinite 4s;
+}
+@-webkit-keyframes clockmove{
+	20%{-webkit-transform: translate(40px, 40px);}
+	40%{-webkit-transform: translate(-40px, 80px);}
+	60%{-webkit-transform: translate(-50px, -40px);}
+	90%{-webkit-transform: translate(-80px, -50px);}
+}
+
+</style>
+</head>
+<script type="text/javascript">
+	onload = function(){
+		setInterval(timeView, 1000);
+	};
+	
+	// 현재시간 출력
+	function timeView(){
+		var date = new Date();
+		document.getElementById("time").innerHTML = date.toLocaleTimeString();
+	}
+
+	// 알람 설정 폼을 다시 보이게 만듬
+	function view(){
+		document.getElementById("setAlarm").style.display = "block";
+	}
+	
+	// setAlarm
+	function setAlarm(){
+		var inputAlarm = document.getElementById("alarm").value;
+//		alert(inputAlarm); // text로 가져옵니당
+		if(inputAlarm==null || inputAlarm==""){
+			alert("알람 시간을 입력해 주세요");
+		} else{
+			document.getElementById("on").style.color = "red";
+			var atime = inputAlarm * 1000; // 1초라면 1000ms 변환
+			setTimeout(music,atime); // atime이 지났을 때, music function을 실행시킨다.
+		}
+	}
+	
+	function music(){
+//		alert("music");
+		document.getElementById("song").innerHTML = 
+			"<embed src='./music/"+selMusic()+"' autoplay='true' hidden='true'>";
+		document.body.style.backgroundColor = bgColor();
+		document.getElementById("clock").className = 'move';
+	}
+	
+	function selMusic(){
+		var rdio = document.getElementsByName("rdo");
+		for (var i = 0; i < rdio.length; i++) {
+			if(rdio[i].checked){
+				return rdio[i].value;
+			}
+		}
+	}
+	
+	function bgColor() {
+		return document.getElementsByName("colorview")[0].value;
+	}
+	
+	function finishAlarm(){
+		// 노래 태그를 지워버린다
+		document.getElementById("song").innerHTML = "";
+		document.body.style.backgroundColor = "white";
+		document.getElementById("clock").className = ""; // 클래스 네임도 지워주고
+		document.getElementById("alarm").value = "";
+		document.getElementById("on").style.color = "black";
+	}
+	
+</script>
+<body>
+	<!-- mp3기능.. -->
+<!-- <embed src="./music/Despacito.mp3" autoplay="true" hidden="true"> -->
+	<div id="clock">
+		<div id="btn" onclick="view()" title="알람을 설정해 주세요!!">알람</div>
+		<div id="time"></div>
+		<div id="setAlarm">
+			<input type="number" id="alarm"/><b>초 후</b>
+			<input type="button" id="on" value="켜기" onclick="setAlarm()">
+			<input type="button" id="off" value="끄기" onclick="finishAlarm()"><br>
+		
+			<!-- radio 버튼은 중복선택이 안된다. -->
+			<label>기상나팔</label><input type="radio" name="rdo" value="military.mp3"/><br>
+			<label>카드캡처</label><input type="radio" name="rdo" value="card.mp3"/><br>
+			<label>Despacito</label><input type="radio" name="rdo" value="Despacito.mp3" checked="checked"/><br>
+			<label>배경색 선택</label><input type="color" name="colorview">
+			
+		</div>
+	</div>
+	<!-- play는 audio, video가 아니고 임베디드.. 싸이월드 같은 거.. -->
+	<div id="song"></div>
+</body>
+</html>

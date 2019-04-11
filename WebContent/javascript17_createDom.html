@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tag 생성</title>
+</head>
+<script type="text/javascript">
+// 2가지 방법으로 element 생성할 예정
+	function elementCreate(){
+	// alert("작동");
+	// Element(tag)의 구성: tag명, 속성, text
+	// 엘리먼트 객체 생성 : createElement("태그명");
+	// 속성 생성 : createAttribute("속성명");
+	// text 생성: createTextNode("글");
+	// 속성 추가: setAttributeNode("속성명 값");
+	// 속성 여러개 추가: setAttribute("속성명 값", "속성명 값"); --회사에서 많이 사용
+	// 생성한 후에 특정 위치.append() 하면 붙습니다.
+		
+		var div = document.createElement("div");  // <div></div> 생성
+		var att = document.createAttribute("style"); // style="" 생성
+		var txt = document.createTextNode("엘리먼트 추가");
+	
+		// 1번 방법 (사용하진 않지만 이론공부)
+		att.nodeValue = "border: 2px solid skyblue"; // style="border: 2px solid skyblue"
+		div.setAttributeNode(att);
+	
+		// 2번 방법 (회사 주로 사용)
+//		div.setAttribute("style","border: 2px solid skyblue");
+		// --> createAttribute하지 않아도 됨
+		
+		// <div style="border: 2px solid skyblue">엘리먼트 추가</div>
+		div.appendChild(txt);
+		document.body.appendChild(div);
+		
+		//markup과 markup사이의 값이니까 appendChild로 txt붙여짐
+	}
+
+
+</script>
+<body>
+<button onclick="elementCreate()">엘리먼트 생성</button>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>1. 숫자 형변환 Number()함수</h1>
+	<p>
+		문자형의 정수형태던 실수형태던 숫자형으로 변형해준다.
+	</p>
+	<input type="text" id="num">
+	<button onclick="numTest(num.value)">확인</button>
+	
+	<h1>2. 정수형 변환 parseInt()</h1>
+	<p>
+		문자형 숫자를 형변환 해준다.
+	</p>
+	<input type="text" id="int">
+	<button onclick="intTest(int.value)">확인</button>
+	
+	<h1>3. 실수형 변환 parseFloat()</h1>
+	
+	
+</body>
+
+<script type="text/javascript">
+	function numTest(n) {
+		var val = Number(n) + 10;
+		alert(val);
+	}
+	function intTest(n) {
+		var val = parseInt(n) + 100;
+		alert(val); 		// 3.4 넣으면 103 반환하네!
+
+	}
+</script>
+</html>

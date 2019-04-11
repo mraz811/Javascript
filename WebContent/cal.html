@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+
+table{
+	width: 300px;
+	height: 400px;
+	border: 1px solid black;
+}
+
+tr, td{
+	border: 1px solid black;
+}
+
+input {
+	width: 70px;
+	height: 60px;
+}
+
+th input{
+	width: 295px;
+	text-align: right;
+}
+
+</style>
+</head>
+<script type="text/javascript">
+	var sum = "0"; // 초기값 0
+	
+	function cal(val) {
+		var resultView = document.getElementById("result");
+		
+		// 처음 입력값이 숫자인경우 맨 앞 0 제거 (정규화 표현식)
+		// /[+,-,*,/]/ 연산자가 실행시 맨마지막 문자에 연산자가 있으면 숫자만 입력가능
+	
+		if(val=="="){
+	//		document.getElementsByTagName("span")[1].innerHTML = eval(sum);
+			sum = eval(sum);
+		} else if(val=="c"){
+			sum = "0";
+		} else if(val=="<"){
+			sum = sum.substr(0, sum.length-1);
+		} else if(val=="+-"){
+			var a = -1;
+			sum *= a;
+		} else {
+			sum += val;			
+			document.getElementsByTagName("span")[0].innerHTML = sum;
+		}
+		resultView.value = sum;
+	}
+	
+
+
+</script>
+<body>
+	<table>
+		<tr>
+			<th colspan="4"><input type="text" readonly="readonly" id="result" value="0"></th>
+		</tr>
+		<tr>
+			<td><input type="button" value="7" onclick="cal(this.value)"></td>
+			<td><input type="button" value="8" onclick="cal(this.value)"></td>
+			<td><input type="button" value="9" onclick="cal(this.value)"></td>
+			<td><input type="button" value="/" onclick="cal(this.value)"></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="4" onclick="cal(this.value)"></td>
+			<td><input type="button" value="5" onclick="cal(this.value)"></td>
+			<td><input type="button" value="6" onclick="cal(this.value)"></td>
+			<td><input type="button" value="*" onclick="cal(this.value)"></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="1" onclick="cal(this.value)"></td>
+			<td><input type="button" value="2" onclick="cal(this.value)"></td>
+			<td><input type="button" value="3" onclick="cal(this.value)"></td>
+			<td><input type="button" value="-" onclick="cal(this.value)"></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="0" onclick="cal(this.value)"></td>
+			<td><input type="button" value="00" onclick="cal(this.value)"></td>
+			<td><input type="button" value="." onclick="cal(this.value)"></td>
+			<td><input type="button" value="+" onclick="cal(this.value)"></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="=" onclick="cal(this.value)"></td>
+			<td><input type="button" value="+-" onclick="cal(this.value)"> </td>
+			<td><input type="button" value="<" onclick="cal(this.value)"> </td>
+			<td><input type="button" value="c" onclick="cal(this.value)"> </td>
+		</tr>
+	</table>
+	<span></span>  	<span></span>
+</body>
+</html>

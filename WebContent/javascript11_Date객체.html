@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Date 객체</title>
+</head>
+<script type="text/javascript">
+	onload = function(){
+		// testDate01() 메소드로 만들면 바로 작동이 되어버린다. 
+		// 그래서 testDate01로 메소드를 지워주면 onclick 때 작동이 된다.
+		document.getElementsByTagName("button")[0].onclick = testDate01;
+		document.getElementsByTagName("button")[1].onclick = testDate02;
+		document.getElementsByTagName("button")[2].onclick = testDate03;
+		document.getElementsByTagName("button")[3].onclick = testDate04;
+		document.getElementsByTagName("button")[4].onclick = testDate05;
+		
+		// 익명함수로 되어있어야 메소드를 계속해서 실행시켜준다. 
+		// 메소드()로 되어있으면 한 번만 실행
+//		setInterval(testDate01, 1000); // 1000ms 이므로 1s씩 감
+	}; 
+	
+	function testDate01(){
+//		alert("TEST01")
+		// span 태그이기 때문에 value로 값입력이 되지 않고, innerHTML로 해야 함
+		var inputDate = document.getElementById("today");
+		var date = new Date(); // 오늘 날짜 생성
+		//많이 쓰는 함수 Tue Mar 05 2019
+//		inputDate.innerHTML = date.toDateString(); 
+		// 2019. 3. 5. (.과 공백이 들어간다는 점 유의해주세요!)
+//		inputDate.innerHTML = date.toLocaleDateString();
+		// 2019. 3. 5. 오전 9:18:28
+		inputDate.innerHTML = date.toLocaleString();
+		// 오전 9:18:54
+//		inputDate.innerHTML = date.toLocaleTimeString();
+
+	}
+
+	function testDate02() {
+//		alert("TEST02")
+		// dateString인가 하면 영문은 자동으로 나옵니다.. 한글이 없어서 만들어줌
+		var dayOfWeek = ["일","월","화","수","목","금","토"];
+		var date = new Date();
+		var year = date.getFullYear(); //년도
+		var month = date.getMonth()+1; //월 윤년 계산에 의해서 배열에서 가지고 오기 때문에 +1
+		var day = date.getDate(); //일
+		var week = date.getDay() //요일
+		document.getElementById("today").innerHTML = 
+			year+"/"+month+"/"+day+"/"+dayOfWeek[week];
+	}
+	
+	function testDate03(){
+		var obj = document.getElementById("dateInput").value;
+		alert(obj);	// 2019-02-27
+		
+		var year = 2019;
+		var month = 6;
+		var day =12;
+		// 방법은 2가지 형식이 있습니다. 아래 두 방식이 같습니다
+//		var date = new Date(2019, 6-1, 12); // 월은 배열이니 -1해주는것 잊지말기
+		var date = new Date("2019-06-12");
+		document.getElementById("specific").innerHTML = date;
+	}
+	
+	function testDate04(){
+		// String으로 가져옵니다.
+		var dates = document.getElementById("dates").value;
+		var inputDate = document.getElementById("inputDate").value;
+//		alert(date+":"+inputDate);
+		var date = new Date(dates);
+		date.setDate(date.getDate()+parseInt(inputDate));
+		document.getElementById("result").value = 
+			date.toLocaleDateString();
+	}
+	
+	function testDate05(){
+		var date02 = document.getElementById("date02").value;
+		var inputDate02 = document.getElementById("inputDate02").value;
+//		alert(date02+":"+inputDate02);
+ 		var startDate = new Date(date02);
+		var endDate = new Date(inputDate02);
+//		alert(startDate - endDate); //-2332800000 ms로 나옴
+		var resultVal = (endDate.getTime()-startDate.getTime())/(60*60*24*1000);
+		document.getElementById("result02").value = resultVal;
+	}
+	
+</script>
+<body>
+	<h1>오늘 날짜 출력하기</h1>
+	<span id="today"></span><br>
+	<button>오늘 날짜</button>
+	<button>오늘 날짜 표현</button>
+	<hr>
+	
+	<h1>특정날짜 출력하기</h1>
+	<span id="specific"></span>
+	<input type="date" id="dateInput"/>
+	<button>특정날짜</button>
+	<hr>
+	
+	<h1>경과날짜 구하기</h1>
+	<label>지정날짜</label><input type="date" id="dates" value="2019-03-05" size="50"/><br>
+	<label>경과일</label><input type="number" id="inputDate"/><br>
+	<label>경과 후 날짜</label><input type="text" id="result" readonly="readonly"/><br>
+	<button>경과날짜</button>		
+	<hr>
+	
+	<h1>D-Day</h1>
+	<label>지정날짜</label><input type="date" id="date02" size="50"/><br>
+	<label>수료날짜</label><input type="date" id="inputDate02"/><br>
+	<label>남은일수</label><input type="text" id="result02" readonly="readonly"><br>
+	<button>남은 일수 구하기</button>
+
+
+</body>
+</html>

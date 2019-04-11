@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로또 생성기</title>
+<style type="text/css">
+/* #, . selector */
+#LottoBox {
+	width: 600px;
+	height: 600px;
+	border: 3px double red;
+}
+
+.ball {
+	width: 80px;
+	height: 80px;
+	border: 1px solid gray;
+	border-radius: 40px;
+	text-align: center;
+	line-height: 80px; /*line 사이의 글자 간격*/
+	position: absolute;
+	/* fixed: 0,0에서 시작 / abosolute: 소속되어있는 곳 안에서만 작동
+			inheritance: 연관관계 있는 ... 뭐?*/
+	-webkit-transition: 1s transform;
+	transform: translate(50px);
+}
+
+.selBall {
+	width: 80px;
+	height: 80px;
+	border: 1px solid gray;
+	border-radius: 40px;
+	text-align: center;
+	line-height: 80px; /*line 사이의 글자 간격*/
+	position: absolute;
+	/* fixed: 0,0에서 시작 / abosolute: 소속되어있는 곳 안에서만 작동
+			inheritance: 연관관계 있는 ... 뭐?*/
+	-webkit-transition: 1s transform;
+}
+</style>
+</head>
+<script type="text/javascript">
+	window.onload = function() {
+		//  	alert("온로드");
+		var balls = document.getElementsByClassName("ball");
+		var count = 1; //로또 선택개수
+		var ballPx = 700;
+		for (var i = 0; i < balls.length; i++) {
+			// 		// innerHTML 사용 하면 ball의 div사이에 값이 들어가겠죠! 
+			// 		// tag 사이에 값을 넣기 위해 innerHTML 사용하는 것
+			balls[i].innerHTML = i + 1;
+			balls[i].style.transform = "translate("+rNum()+"px,"+rNum()+"px)";
+			balls[i].style.background = "rgb("+rNum02()+","+rNum02()+","+rNum02()+")";
+
+			balls[i].onclick = function() {
+				if (count <= 6) { //로또 공 6개 선택
+					// 현재 선택된 애가 this 
+					document.getElementById("lottoNumber").innerHTML 
+						+= this.innerHTML + "&nbsp;";
+					// 선택된 공은 박스 안에서 빼준다.
+					this.className = "selBall";
+					this.style.transform = "translate("+ballPx+"px, 0px)";
+					count++;
+					ballPx += 100;
+				} else {
+					alert("더 이상 선택할 수 없습니다.");
+				}
+			};
+		}
+	};
+
+	// ~~ 이라는 문법이 있다. 소문자 제외하고 정수만 반환
+	function rNum() { // 번호
+		return ~~(Math.random() * 500);
+	}
+
+	function rNum02() { // 색깔
+		return ~~(Math.random() * 256);
+	}
+
+	function lottoShuffle() {
+		//		alert("작동");
+		var balls = document.getElementsByClassName("ball");
+		// 		setInterval(function() {}, ms)
+		// (ms)밀리세컨드 당 자동으로 function을 실행시켜준다 (시계 등에 사용)
+		// clear 할 때 까지 계속 실행시켜준다.
+		setInterval(function() {
+			for (var i = 0; i < balls.length; i++) {
+				balls[i].style.transform = "translate(" + rNum() + "px,"
+						+ rNum() + "px)";
+			}
+		}, 800)
+	}
+</script>
+<body>
+	<fieldset>
+		<legend>로또 번호 만들기</legend>
+		<span>로또번호:</span><span id="lottoNumber"></span> <span>보너스 번호:</span><span></span>
+		<button onclick="lottoShuffle()">로또 섞기</button>
+	</fieldset>
+
+	<div id="LottoBox">
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+		<div class="ball"></div>
+
+	</div>
+
+</body>
+</html>

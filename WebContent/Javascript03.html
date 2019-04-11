@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	// function함수 명시적함수
+	function hamsu01(){
+		alert("명시적 함수");
+		location.href="http://www.naver.com";
+	}
+	
+	//익명 함수 () 변수에 담아서 쓰는 이름없는 함수 ";" 써주기
+	var hamsu02 = function(){
+		alert("익명함수");
+	};
+	
+	//함수리터럴 (argument자체가 함수)
+	function hamsu03(){
+		literalTest(function(msg){alert(msg);});
+	}
+	
+	function literalTest(literal){
+		literal("안녕하세요 리터럴입니다. 처음뵙겠습니다.");
+	}
+	
+	// arguments 선언하지 않았지만 외부에서 받아서 사용할 수 있습니다! 
+	function varTest(){
+		var val = "";
+		for (var i = 0; i < arguments.length; i++) {
+			val += arguments[i];
+		}
+		alert(val);
+	}
+	
+	// 클로저
+	var amEdu = closureTest("database");	// 양진숙양 전송
+	// 처음에 closureTest("database") 
+		// -> (function addVal(database){alert(database+":"+msg);})
+			// -> addVal("양진숙양") -> alert(database+":"+양진숙양)
+	// 메소드를 반환시킨다는 것. 함수를 미완성인 상태로 반환해서 완성시킨다.
+	var pmEdu = closureTest("javascript");
+	
+	function closureTest(val){
+		function addVal(msg){
+			alert(val+":"+msg);
+		}
+		return addVal;
+	}
+	
+</script>
+
+</head>
+<body>
+	<h1>함수의 종류</h1>
+	<p onclick="hamsu01()">1. 명시적 함수</p>
+	<p onclick="hamsu02()">2. 익명 함수</p>
+	<p onclick="hamsu03()">3. 함수리터럴 함수</p>
+	
+	<h1 onclick="varTest('양진숙양','노트북희원','노트북사라질뻔한원서','문이슬크리스탈파워')">Arguments 속성</h1>
+	
+	<h1>클로저(함수리턴하기)</h1>
+	<label for="am">오전강의</label>
+	<!-- form요소: 값을 전달할 때 사용하는 속성 input 태그에 주로 사용. 
+			type="text, button, date, number, submit, reset" -->
+	<input type="text" id="am" value=""><!-- 값 양진숙양 -> amEdu -->
+	<input type="button" value="클릭" onclick="amEdu(am.value)">
+	
+	<hr>
+	<h1>클로저(함수리턴하기)</h1>
+	<label for="pm">오후강의</label>
+	<input type="text" id="pm" value="">
+	<input type="button" value="클릭" onclick="pmEdu(pm.value)">
+	
+</body>
+</html>

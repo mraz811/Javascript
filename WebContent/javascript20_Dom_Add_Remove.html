@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>탐색  추가 삭제</title>
+</head>
+<script type="text/javascript">
+
+	function addAppend(){
+		var fieldSet = document.getElementById("addEle"); // tag 위치 찾음
+		var p = document.createElement("p"); // p 태그 생성
+		p.textContent = "자식 태그 마지막에 붙여넣는다."; // text만 입력하게 만들뿐.. innerHTML같음
+		fieldSet.appendChild(p);
+	}
+
+	var count = 1;
+	
+	function addBefore(){
+		var newP = document.createElement("p");
+		var fieldSet = document.getElementById("addEle"); // tag 위치 찾음
+		newP.textContent = "엘리먼트를 앞에 붙임" + (count++);
+		var oldDiv = document.querySelector("fieldset>div");
+		fieldSet.insertBefore(newP, oldDiv);
+	}
+	
+	function moveElement(){
+		var moveEle = document.querySelector("fieldset").children[1];
+		var addEle = document.body;
+		addEle.appendChild(moveEle);
+	}
+	
+	cnt = 1;
+	function addTest(){
+		var div = document.createElement("div");
+		div.textContent = "dom test " +(cnt++);
+		document.getElementById("test01").appendChild(div);
+	}
+	
+	function moveTest(){
+		var test02 = document.getElementById("test02");
+		var test01Div = document.getElementById("test01").children[0];
+		test02.appendChild(test01Div);
+	}
+	
+</script>
+<body>
+	<h1>태그추가하기</h1>
+	<button onclick="addAppend()">appendChild()</button>
+	<button onclick="addBefore()">insertBefore()</button>
+	<button onclick="moveElement()">appendChild를 이용한 엘리먼트 이동</button>
+
+	<fieldset id="addEle">
+		<legend>부모태그</legend>
+		<div>div태그</div>
+	</fieldset>
+	
+	<hr>
+	<h3>문제1: test01 태그에 "dom test"란 내용을 가진 div태그를 여러개 추가하기 </h3>
+	<h3>문제2: test01 태그에 추가된 태그들을 test02로 이동시키시오</h3>
+	
+	<button onclick="addTest()">태그 추가</button>
+	<button onclick="moveTest()">옮기기!</button><br>
+	
+	문이슬1
+	<div id="test01"></div>
+	<hr>
+	문이슬2
+	<div id="test02"></div>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

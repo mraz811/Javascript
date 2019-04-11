@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이미지 롤링</title>
+<style type="text/css">
+img{
+	vertical-align: middle;
+	width: 300px;
+	height: 300px;
+}
+a{
+	font-size: 30pt;
+	text-decoration: none;
+}
+
+</style>
+</head>
+<script type="text/javascript">
+	window.onload = function(){
+		var anchors = document.querySelectorAll("a");
+		var count = 1;
+		var img = document.querySelector("img");
+		
+		// 왼쪽 누름
+		anchors[0].onclick = function(){
+			var imgAlt = img.getAttribute("alt"); // img01을 찾겠죠?
+			if(imgAlt=="img01"){
+				alert("첫 번째 이미지 입니다");
+			} else{
+				img.setAttribute("alt", "img0"+(--count));
+				img.setAttribute("src", "./images/img0"+count+".jpg")
+			}
+		};
+		
+		// 오른쪽 누름
+		anchors[1].onclick = function(){
+			var imgAlt = img.getAttribute("alt"); // img01을 찾겠죠?
+			if(imgAlt=="img05"){
+				alert("마지막 이미지 입니다");
+			} else{
+				img.setAttribute("alt", "img0"+(++count));
+				img.setAttribute("src", "./images/img0"+count+".jpg")
+			}
+		};
+		
+	};
+	
+</script>
+<body>
+	<a href="#" id="lt">◀</a>
+		<img alt="img01" src="./images/img01.jpg">
+	<a href="#" id="gt">▶</a>
+
+</body>
+</html>

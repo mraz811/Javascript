@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+	function tableVal() {
+		var doc = document.forms[0];
+		var vals = [doc.id.value, doc.pw.value, doc.address.value, doc.phone.value];
+		// 이게 request.getParameter..
+		
+		// 유효값처리
+		for (var i = 0; i < vals.length; i++) {
+			if(vals[i]==null || vals[i]=="" || vals[i]==undefined){
+				alert("모두 입력하세요");
+				return ; //아무것도 없는 return : 아무것도 반환하지 않고 함수 자체를 빠져나갑니다. 
+			}
+		}
+		
+		// 테이블의 행의 갯수를 10으로 제한
+		var tbody = document.getElementById("addtr");
+		var trlen = tbody.children.length; // tbody의 자식들 갯수!
+		
+		trlen < 10 ? 
+			document.getElementById("addtr").appendChild(createRow(vals)) : alert("10개까지만 가능");
+	}
+	
+	function createRow(vals){
+		var tr = document.createElement("tr");
+		for (var i = 0; i < vals.length; i++) {
+			var td = document.createElement("td");
+			td.textContent = vals[i];
+			tr.appendChild(td);
+		}
+		
+		//td (삭제칸 만들어주기 위해서)
+		var deltd = document.createElement("td");
+		deltd.innerHTML = "<input type='button' value='삭제' onclick='delRow(this)'>";
+		
+		tr.appendChild(deltd);
+		
+		
+		return tr;
+	}
+	
+	function deleteVal() {
+		var tbody = document.getElementById("addtr");
+		tbody.removeChild(tbody.lastChild);		
+	}
+	
+	function delRow(ele){
+//		alert(ele.parentNode.parentNode); // 얘가 tr이겠죠. this는 input이 나오더군요
+		var deltr = ele.parentNode.parentNode;
+		var tbody = document.getElementById("addtr");
+		tbody.removeChild(deltr);
+		
+	}
+
+</script>
+<body>
+	<form id="inTable"> 
+		<table>
+			<tr>
+				<td>아이디</td>
+				<td>
+					<input type="text" name="id">
+				</td>
+			</tr>
+			<tr>
+				<td>비밀번호</td>
+				<td>
+					<input type="password" name="pw">
+				</td>
+			</tr>
+			<tr>
+				<td>주소</td>
+				<td>
+					<input type="text" name="address">
+				</td>
+			</tr>
+			<tr>
+				<td>전화번호</td>
+				<td>
+					<input type="text" name="phone">
+				</td>
+			</tr>
+		</table>
+		<input type="button" value="추가" onclick="tableVal()">
+		<input type="reset" value="초기화">
+		<input type="button" value="삭제" onclick="deleteVal()">
+		
+	</form>
+
+	<div id="addTable">
+		<table border="1" id="ctb">
+			<thead>
+				<tr>
+					<th>아이디</th><th>비밀번호</th><th>주소</th><th>전화번호</th>
+				</tr>
+			</thead>
+			<tbody id="addtr">
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

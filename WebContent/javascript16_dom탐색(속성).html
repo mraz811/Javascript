@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript에서 가장 중요한 돔(dom)탐색</title>
+</head>
+<script type="text/javascript">
+
+	// parents노드 속성 : 탐색된 element의 부모 element를 탐색
+	// p 태그의 child01을 선택하든 02를 선택하든 부모는 div가 되겠지
+	function searchParents() {
+//		alert("p");
+		var child02 = document.getElementsByTagName("p")[1];
+		var div = child02.parentNode;
+//		alert(div); // [object HTMLDivElement]
+//		alert(div.nodeName); // DIV 찾은 부모 Object의 태그이름을 가져옴
+		div.style.backgroundColor = "orange"; // 부모 div의 스타일을 바꾸면 p는 상속받으니 다 바뀌겠지
+	}
+	
+	
+	function searchChildren(){
+//		alert("c");
+		var div = document.getElementsByTagName("div")[0];
+		var childDiv = div.childNodes; // nodelist로 가지고 온다는 말. 자식은 배열로 반환
+//		alert(childDiv.length); //자식노드의 개수를 구함 왜 9가 뜨지?
+		// div 뒤 공간 1, 태그, 빈공간, 태그, 빈공간... 이렇게 빈공간도 node로 인식
+//		alert(childDiv[4].tagName); // undefined
+//		alert(childDiv[5].tagName); // p
+		childDiv[5].style.backgroundColor = "pink";
+		// tag와 tag중간에 아무것도 없는 빈공간이 존재한다는 점 기억하기!
+	}
+	
+	function testSearch(){
+		// 1. 
+		var test01 = document.getElementsByTagName("p")[3];
+//		alert(test01.innerHTML); // test01
+		var div02 = test01.parentNode;
+//		alert(div02.tagName); // DIV
+		div02.style.backgroundColor = "tomato";
+		
+		// 2.
+		var div03 = document.getElementsByTagName("div")[3];
+		var childP = div03.childNodes;
+		childP[3].style.fontSize = "30pt";
+	}
+</script>
+<body>
+	<div>
+		<!-- p는 내리는 애가 아니고 영역태그이기 때문에 줄 내릴 땐 br로 -->
+		<p>child01</p>
+		<p>child02</p>
+		<p>child03</p>
+	</div>
+	<button onclick="searchParents()">부모탐색</button>
+	<button onclick="searchChildren()">자식탐색</button>
+	
+	<hr>
+	<h2>1. test01 tag를 포함하고 있는 div 태그를 찾아서 배경색을 적용하세요 (parentNode사용)</h2>
+	<h2>2. 마지막 div태그에 보함된 test04태그의 폰트 크기를 20pt로 적용하세요 (childNodes사용)</h2>
+	
+	<div onclick="testSearch()">적용</div>
+	<div>
+		<p>test01</p>
+		<p>test02</p>
+	</div>
+	<div>
+		<p>test03</p>
+		<p>test04</p>
+	</div>
+	
+</body>
+</html>

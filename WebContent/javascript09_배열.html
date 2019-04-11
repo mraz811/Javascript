@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>배열</title>
+</head>
+<script type="text/javascript">
+// ********************잘 외워서 쓰세요*************************//
+// 배열의 선언방법
+	var arrayObj = new Array(); // 객체 선언
+	// javascript 는 타입이 없기 때문에 String이던 int던 다 들어감
+	// 자바스크립트의 타입은? object, 문자, 숫자, 배열, boolean, function 타입
+	var arrayList = ["v1", "v2", 3, 4];
+//	alert(typeof arrayList); // object
+//	alert(typeof arrayList[2]); // var 타입 
+//	alert(typeof arrayObj); // object
+//	alert(typeof arrayObj[0]); // undefined 객체만 생성되고 안에 값은 없다.
+
+	var arrayObj02 = new Array();
+	var arrayObj03 = new Array(5); // 인수 값이 한 개일 경우 길이를 정의
+//	alert(arrayObj03.length); // 5 : 값이 아니라 길이입니다.
+	// 자바에서는 타입에 따라 초기값이 있었는데, var타입이라서 초기값은 정의되지 않는다.
+//	alert(arrayObj03[0]); // undefined
+
+	// 인수 값이 여러 개일 경우 값들 정의 (java의 초기값 정의)
+	var arrayObj04 = new Array(1,2,3,4,5); // 값이겠죠 ㅎ
+//	alert(arrayObj04[3]); // 4
+	
+	function multArr(){ // 다차원 배열
+		var arrLen = 3; 
+		var arr = new Array(arrLen);
+		// arr. 후에 메소드를 추가 하고 싶으면 proto type으로 추가하면 사용 가능.
+		for (var i = 0; i < arr.length; i++) {
+			arr[i] = new Array(arrLen);			
+		}
+		arr[0][0] = "apple";
+		arr[0][1] = "banana";
+		arr[0][2] = "cherry";
+
+		arr[1][0] = 1;
+		arr[1][1] = 2;
+		arr[1][2] = 3;
+	
+		arr[2][0] = ["test","again"];  // [2][0][0], [2][0][1]
+		arr[2][1] = ["java","script"]; // [2][1][0], [2][1][1]
+		arr[2][2] = ["array3","888array"]; // 3차원 배열이다...우와아아 위에는 2차원인디
+	
+//		alert(arr.toString());  //apple,banana,cherry,1,2,3,test,again,java,script,array3,888array
+//		alert(arr[2][2][0]); // array3
+	}
+
+	function joinTest(){
+		var fruitArray = ['apple', 'peach', 'lemon', 'lime'];
+		var etc = ['1','2','3','4'];
+		var add = fruitArray+etc;  
+//		alert(add); // apple,peach,lemon,lime1,2,3,4
+//		alert(typeof add); // string
+		var result = fruitArray.join('-');
+		alert(result);  //apple-peach-lemon-lime
+	}
+	
+	// 정렬 : sort(), 사전식 정렬 -> 오름차순
+	function sortTest01(){
+		var arrVal = ["a","c","b"];
+		arrVal.sort();
+//		alert(arrVal);   //a,b,c
+		var arrVal02 = ["a","c","b", null, 1]; // 숫자 우선, 문자, 널
+		arrVal02.sort();
+		alert(arrVal02);   //1,a,b,c,
+	}
+	
+	// 숫자 정렬
+	function sortTest02(){
+		var arrVal = [1,4,3,8,9,7,10];
+//		arrVal.sort();  
+//		alert(arrVal); // 1,10,3,4,7,8,9 (문자타입으로 되어 1뒤로 쭉)
+		// 숫자로 정렬되는 것이 아니라서.. 그래서 compareNum()
+		arrVal.sort(compareNum); //1,3,4,7,8,9,10
+		alert(arrVal);
+	}
+
+	function compareNum(a,b){
+		return a-b;
+		// bubble 정렬? 음수냐 양수냐에 따라서 크다 작다 판단해줌
+	}
+	
+	function reverseTest() {
+		var numArray = [4,10,22,77,1,3,2,7]; 
+		numArray.sort(compareNum);
+		numArray.reverse();
+		alert(numArray); // 위에 정렬 없이 하면 7,2,3,1,77,22,10,4
+		// sort(compareNum) 후에 출력하면 77,22,10,7,4,3,2,1
+	}
+	
+	function pushAndShift(){
+		var queue = new Array();
+		// 인덱스에 관계 없이 값을 추가
+		queue.push("1st");
+		queue.push("2nd");
+		queue.push("3rd");
+//		alert(queue);  // 1st,2nd,3rd 
+		
+		// 앞에서 부터 잘라옴 shift()
+		// 예전엔 arrayList 가져온 다음에.. remove..? get..? what??
+		var a = queue.shift();
+//		alert(a+" :: "+queue);  // 1st :: 2nd,3rd
+		// shift로 맨 앞에 하나만 잘라서 a에 넣은 것
+		
+		// 뒤에서 부터 잘라옴 pop()
+		// javascript가 queue 메모리를 사용
+		var b = queue.pop();
+//		alert(b+" :: "+queue);  // 3rd :: 2nd
+	}
+	
+	function sliceTest(){
+		var arrTest01 = new Array(1,2,3,4,5);
+		// start index는 포함하지만 end index는 포함하지 않는다. 
+		// subString이랑 비슷하네!?
+		var arr01 = arrTest01.slice(1,3); 
+//		alert(arr01); // [2,3]
+		arr01[0] = 15;
+//		alert(arr01); // 15,3
+		
+		var arrTest02 
+		 = new Array(new Array(1,2), new Array(3,4), new Array(5,6), new Array(7,8));
+//		alert(arrTest02); // 1,2,3,4,5,6,7,8 로 출력되지만
+		// [[1,2],[3,4],[5,6],[7,8]]로 되어있는 상태
+		
+		var arr02 = arrTest02.slice(1,3);
+		alert(arr02);  // 3,4,5,6
+		
+		
+	}	
+	
+	
+</script>
+<body>
+	<h1>배열 객체</h1>
+		<ul>
+			<li onclick="multArr()">다중배열</li>
+			<li onclick="joinTest()">join함수</li>
+			<li>배열정렬
+				<ul>
+					<li onclick="sortTest01()">sort() 문자정렬</li>
+					<li onclick="sortTest02()">sort() 숫자정렬</li>
+					<li onclick="reverseTest()">reverse() 반대로 정렬</li>
+				</ul>
+			</li>
+			<li onclick="pushAndShift()">배열의 저장방식
+				<ul>
+					<li>push()</li>
+					<li>shift()</li>
+					<li>pop()</li>
+				</ul>
+			</li>
+			<!-- 자바에서 배열 복사 clone()(heap), for문(stack), ..뭐더라 -->
+			<li onclick="sliceTest()">배열의 부분적으로 새 배열을 생성</li>
+			
+		</ul>
+
+
+</body>
+</html>

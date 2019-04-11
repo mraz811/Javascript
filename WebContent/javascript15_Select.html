@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+	function show(){
+		var doc = document.getElementsByName("food")[0];
+		var idx = doc.selectedIndex; // 선택한 옵션태그를 인덱스로 변환합니다.
+//		alert(idx); // 만두 선택시 2 ..
+		var foodval = doc.options[idx].value; // select의 options[index번호]의 값
+//		alert(foodval);
+	}
+
+	function show2(){
+		var doc = document.getElementsByName("food")[1];
+		var str = "";
+		// doc 길이로 돌리면 폭망! doc의! options 의 길이
+		for (var i = 0; i < doc.options.length; i++) {
+			if(doc.options[i].selected){
+				str += doc.options[i].value;
+			}
+		}
+		alert(str);
+	}
+	
+</script>
+<body>
+	<h1>가장 먹고 싶은 음식은?</h1>
+	<form>
+		<select name="food" onchange="show()"> <!-- onclick아니고 onchange -->
+			<option value="">--선택--</option>
+			<option value="라멘">라멘</option>
+			<option value="만두">만두</option>
+			<option value="찜닭">찜닭</option>
+			<option value="잔치국수">잔치국수</option>
+			<option value="냉모밀" selected="selected">냉모밀</option>
+		</select>
+		<br><br><br>
+
+	<!-- 여러개 선택 가능한 select인 멀티플이라는 것을 보여줄 것이다. -->
+	<!-- 많이 사용하진 않으나 Ctrl누르고 선택해서 여러개 선택해서 input으로 넘길 수 있다. -->
+	<!-- onchange 사용하지 않는다. -->
+		<select name="food" multiple="multiple" size="5">
+			<option value="">--선택--</option>
+			<option value="라멘">라멘</option>
+			<option value="만두">만두</option>
+			<option value="찜닭">찜닭</option>
+			<option value="잔치국수">잔치국수</option>
+			<option value="냉모밀">냉모밀</option>
+		</select>
+		<input type="button" value="선택" onclick="show2()">		
+	</form>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로케이션 객체 href 같은거</title>
+</head>
+<script type="text/javascript">
+	function locTest(){
+		var val = "내일 날씨";
+		// md5형식
+		location.href = "https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query="
+				+ val;
+//		alert(location.href);
+		// http://localhost:8091/20190218_javascript/javascript13_location%EA%B0%9D%EC%B2%B4.html
+		// 로케이션 객체는 자기 자신의 위치를 말하고 href로 주소값을 이동시키겠다
+		// 변수를 바꿔주고
+		
+		// script를..?
+		location.assign("https://translate.google.com/");
+//		alert(location.assign); //function () { [native code] }
+		
+		location.replace("https://search.naver.com/"); // 뒤로가기가 안됩니다.
+		
+	}
+</script>
+<body>
+<a href="http://www.naver.com">네이버로 이동</a>
+<button onclick="locTest()">이동2</button>
+</body>
+</html>

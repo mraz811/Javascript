@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>윈도우 객체 1번</title>
+<style type="text/css">
+	#regist{
+		border: 2px dotted tomato;
+		background-color: pink;
+		position: absolute;
+		top: 200px;
+		left: 500px;
+		display: none;  
+	}
+
+</style>
+</head>
+<script type="text/javascript">
+	function openWin(){
+//		alert("작동");
+		// window.open(); 에는 url, title, option 이 들어감
+		// 외부 url을 사용할 때는 full url을 사용해 주어야 합니다.
+		var url = "./javascript12_window02.html";
+		var title = "네이버 창";
+		var prop = "top=200px, left=600px, height=500px, width=500px, scrollbars=no, resizable=no";
+		window.open(url, title, prop);
+	}
+	
+	function registForm() {
+		// 감춰진 div (display:none)를 보이게 만듬 (display="block")
+		document.getElementById("regist").style.display="block";
+		document.body.style.background="gray";
+		var bts = document.getElementsByName("btn");
+		for(var i in bts){ // 향상된 포문 java의 : 대신 in
+			bts[i].disabled = "disabled"; // 사용여부를 disable시키면 됩니다
+		}
+	}
+	
+	function closeWin() {
+		document.getElementById("regist").style.display="none";
+		document.body.style.background="white";
+		var bts = document.getElementsByName("btn");
+		for(var i in bts){ // 향상된 포문 java의 : 대신 in
+			bts[i].disabled = ""; // 사용여부를 지워주면 됩니다. abled는 없음
+		}
+	}
+	
+	function idchk() {
+		alert("중복체크를 하세요");
+	}
+	
+	function idCheck(){
+		open("./javascript12_window03.html","아이디체크","width=600px, height=300px");
+	}
+	
+</script>
+<body>
+	<h1>윈도우 객체 1번</h1>
+	<pre>
+		property 프로퍼티
+		- document 	: 문서자체를 말함
+		- history 	: ex) history back 내가 봤던 브라우저의 전 화면
+		- navigator : 이제 nav태그로 변환되었다.
+		- screen
+		- top	: 사용자가 보이는 화면에서 제일 위에 있는 창이 top이다 (활성화되어 있는 창) 많이 없어짐
+		- parent 	: window open.. 띄운 창의 부모
+		- self 		: 자기 자신의 브라우저를 호출할 때는 self. ex) self close
+		
+		
+		method 메소드
+		- alert(), confirm(), prompt()
+		- back(), forward()	
+		- setInterval(function,ms), clearInterval(function)
+		- setTimeout() 이 시간이 될 때 종료시켜라
+		- open(), close()
+	
+	</pre>
+	
+	<div id="f1">
+		<h1>팝업창 만들기</h1>
+		<button onclick="openWin()" name="btn">창 열기</button>
+		<hr>
+		<h1>회원가입하기(div팝업창)</h1>
+		<button onclick="registForm()" name="btn">회원가입</button>
+	</div>
+	
+	<!-- 회원 가입 폼 -->
+	<div id="regist">
+	<form>
+		<table>
+			<caption>회원가입</caption>
+			<tr>
+				<td>아이디</td>
+				<td>
+					<input type="text" name="id" onclick="idchk()" readonly="readonly">
+					<input type="button" value="중복체크" onclick="idCheck()">
+				</td>
+			</tr>
+			<tr>
+				<td>패스워드</td>
+				<td>
+					<input type="password" name="pwd" style="color: red;" checked="checked"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="button" value="확인" onclick="closeWin()">
+				</td>
+			</tr>
+		</table>
+	</form>
+	</div>
+	
+</body>
+</html>

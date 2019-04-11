@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+	var ids = ["moon","won","man","0"];
+	function confirmChk() {
+		var id = document.getElementsByName("id")[0].value; // id값 탐색!
+		var div = document.getElementsByTagName("div")[0]; // 메시지 출력을 위함
+		if (ids.indexOf(id)!=-1) { // 배열에서 id를 검색해서 아이디가 있다면? 없다면?
+			div.innerHTML = "<b>아이디가 존재합니다.</b>"
+		} else {
+			// 처음엔 버튼이 없다가 후에 버튼을 생성해서 뿌려주므로 화면엔 노출이 안됨 (그동안 display:none으로 했었지)
+			var userId = "사용할 수 있는 아이디 입니다."
+					+ "<input type='button' value='사용' onclick='insertId(\""+id+"\")'>"
+					+ "<input type='button' value='취소' onclick='self.close()'>";
+					// insertId(id) -> insertId("id") 여아 하므로 escape문자 \를 넣어준다.
+			div.innerHTML = userId; 
+		}
+	}
+
+	function insertId(id){
+		opener.document.getElementsByName("id")[0].value = id;
+		opener.document.getElementsByName("pwd")[0].focus();
+		close();
+	}
+	
+</script>
+<body>
+	<table>
+		<tr>
+			<td>아이디</td>
+			<td><input type="text" name="id"></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="button" value="중복확인" onclick="confirmChk()"/>
+				<input type="button" value="닫기" onclick="self.close()"/>
+			</td>
+		</tr>
+	</table>
+	<!-- 원래는 ajax하려고 햇는데! jQuery를 알아야해서.. -->
+	<div></div>
+</body>
+</html>

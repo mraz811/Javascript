@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dom 속성</title>
+</head>
+<script type="text/javascript">
+	function createImg(){
+		var radios = document.getElementsByName("rdoBtn");
+		var radioVal = ""; // check된거 확인하기 위함
+		for (var i = 0; i < radios.length; i++) {
+			if(radios[i].checked){
+				radioVal = radios[i].value;
+				break;
+			}
+		}
+		
+		var img = document.createElement("img"); // img태그 생성!
+		img.setAttribute("src", radioVal);
+		
+ 		// 돔 탐색으로 id imgView로 찾을 수도 있지만
+		var div = document.getElementById("imgView");
+/*		//selector 표현식로 그 노드 img를 찾아볼 겁니다. (우리가 css사용하는 것이 seletor 표현식)
+		var oldChild = document.querySelector("#imgView>img");
+		// img src="" 밑에 append를 하지 않고 얘를 교체할 예정!
+		div.replaceChild(img, oldChild); 
+		// 이제 div에 붙입니다.
+		div.append(img);
+ */		
+ 
+ 		if(div.childNodes.length != 0){
+ 			var divImg = div.firstElementChild;
+ 			div.removeChild(divImg);
+ 		}
+		div.append(img);
+ 
+	}
+	
+	function deleteImg() {
+		var doc = document.getElementById("imgView");
+		doc.innerHTML = "";
+	}
+
+</script>
+<body>
+	<input type="radio" name="rdoBtn" value="./images/img01.jpg">이브이<br>
+	<input type="radio" name="rdoBtn" value="./images/img02.jpg">피카츄<br>
+	<input type="radio" name="rdoBtn" value="./images/img03.jpg">샤미드<br>
+	<button onclick="createImg()">이미지 생성하기</button>
+	<button onclick="deleteImg()">이미지 삭제하기</button>
+	<div id="imgView">
+		<img src="">
+	</div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+// 	function antPrint(){
+// 		var initStr = document.getElementById("antValue").value;
+// 		var cnt = 1;
+// 		var resultSum = "";
+// 		var initChar = initStr.substr(0, 1);
+
+// 			for (var i = 1; i < initStr.length; i++) {
+// 				if(initChar==initStr.substr(i,1)){
+// 					cnt++;
+// 				} else {
+// 					resultSum += initChar + cnt;
+// 					initChar = initStr.substr(i,1);
+// 					cnt = 1;
+// 				}
+// 			}
+// 			resultSum += initChar + cnt;		
+// 			document.getElementById("antPrint").innerHTML = resultSum;
+// 	}
+
+	function makeAnt(s){
+		var t = "";
+		var c = s.charAt(0);
+		var count = 1;
+		
+		for (var i = 1; i < s.length; i++) {
+			if(c==s.charAt(i)){
+				count++;
+			} else {
+				t = t+c+count;
+				c = s.charAt(i);
+				count = 1;
+			}
+		}
+		return t = t+c+count;
+	}
+
+	function antLayer(stage){
+		var init = "11";
+		for (var i = 0; i < stage; i++) {
+			init = makeAnt(init);
+		}
+		return init;
+	}
+	
+	function antPrint(){
+		var inputVal = document.getElementById("antValue"); // dom 탐색
+		var val = "";
+		
+		// 유효값 (숫자만)
+		if(isNaN(inputVal.value)){
+			alert("숫자만 입력해주세요");
+			inputVal.value = "";
+			inputVal.focus();
+		} else if(inputVal.value.length >= 3) { // 유효값 (길이제한)
+			alert("2자리까지만 입력하세요");
+			inputVal.value = "";
+			inputVal.focus();
+		} else {
+			// 개미수열 생성 : String concat을 사용하고 -> HTML 작성 -> 기능작동
+			/* 
+			for (var i = 0; i < inputVal.value; i++) {
+				val += "<span>"+ antLayer(i) +"</span><br>";
+			}
+			document.getElementById("antPrint").innerHTML = val;
+			 */
+			 
+			// append를 사용해서 해보자 (비동기식)
+			// div를 만들 것이다!
+			var div = document.createElement("div");
+			for (var i = 0; i < inputVal.value; i++) {
+				var childDiv = document.createElement("div");
+				childDiv.innerHTML = antLayer(i);
+				div.appendChild(childDiv);
+			}
+			
+			var antPrint = document.getElementById("antPrint");
+			antPrint.appendChild(div);
+			
+		}
+	}
+	
+	function resetArea(){
+		var aPrint = document.getElementById("antPrint");
+		for (var i = 0; i < aPrint.childNodes.length; i++) {
+	 		aPrint.removeChild(aPrint.childNodes[i]);		
+		}
+	}
+	
+	
+</script>
+<body>
+<fieldset>
+	<legend>개미수열</legend>
+	<input type="text" id="antValue">
+	<button onclick="antPrint()">출력</button>
+	<button onclick="resetArea()">초기화</button>
+	<div id="antPrint">
+	</div>
+
+</fieldset>
+
+</body>
+</html>
